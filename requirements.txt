@@ -1,0 +1,7 @@
+tornado==4.4.2
+numpy==1.15.1
+scipy==1.1.0
+pyemd==0.4.3
+gensim==3.5.0
+scikit_learn==0.19.2
+jieba==0.39
