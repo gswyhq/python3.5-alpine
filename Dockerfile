@@ -31,7 +31,14 @@ RUN apk --update add --no-cache --virtual .build-deps \
         g++ \
         --repository http://mirrors.ustc.edu.cn/alpine/v3.8/main/ --allow-untrusted \
     && \
-    pip3 --default-timeout=60000 install -r requirements.txt  \
+    pip install tornado==4.4.2 && \
+    pip install numpy==1.15.1 && \
+    pip install scipy==1.1.0 && \
+    pip install pyemd==0.4.3 && \
+    pip install gensim==3.5.0 && \
+    pip install scikit_learn==0.19.2 && \
+    pip install jieba==0.39 \
+    # pip3 --default-timeout=60000 install -r requirements.txt  \
     && apk del -f .build-deps
 
 
