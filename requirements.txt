@@ -3,9 +3,9 @@ geopy==1.11.0
 pyltp==0.1.9.1
 fuzzywuzzy==0.15.0
 xlutils==2.0.0
-numpy==1.12.1
+numpy==1.14.2
 jieba3k==0.35.1
-setuptools==33.1.1
+#setuptools==33.1.1
 xlwt==1.2.0
 requests==2.12.4
 lxml==3.7.3
@@ -29,5 +29,5 @@ python_Levenshtein==0.12.0
 NeuroNER==0.0.3
 jieba==0.39
 JPype1==0.6.3
-psyco==1.6
+#psyco==1.6
 scikit_learn==0.19.2
