@@ -28,6 +28,7 @@ RUN apk --update add --no-cache \
 RUN apk --update add --no-cache --virtual .build-deps \
         gfortran \
         musl-dev \
+        libxslt-dev \
         g++ \
         --repository http://mirrors.ustc.edu.cn/alpine/v3.8/main/ --allow-untrusted \
     && \
