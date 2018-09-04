@@ -20,10 +20,12 @@ WORKDIR /usr/src/app
 # COPY requirements.txt ./
 
 RUN apk --update add --no-cache nginx
+RUN mkdir /run/nginx
 RUN apk --update add --no-cache \
     lapack-dev \
     gcc \
-    freetype-dev
+    freetype-dev \
+    git
 
 RUN apk --update add --no-cache --virtual .build-deps \
         gfortran \
@@ -62,10 +64,16 @@ RUN apk --update add --no-cache --virtual .build-deps \
     pip install NeuroNER==0.0.3 && \
     pip install jieba==0.39 && \
     pip install JPype1==0.6.3 && \
-    pip install scikit_learn==0.19.2 \
+    pip install scikit_learn==0.19.2 && \
+    pip3 install git+https://github.com/Supervisor/supervisor.git \
     # pip3 --default-timeout=60000 install -r requirements.txt  \
     && apk del -f .build-deps
 
+RUN mkdir /var/log/supervisor && \
+    mkdir -p /etc/supervisord/conf.d && \
+    echo_supervisord_conf > /etc/supervisor/supervisord.conf && \
+    echo "[include]" >> /etc/supervisor/supervisord.conf && \
+    echo "files = /etc/supervisord/conf.d/*.conf" >> /etc/supervisor/supervisord.conf
 
 RUN echo "alias date='date +\"%Y-%m-%d %H:%M:%S\"'" >> ~/.bashrc
 
