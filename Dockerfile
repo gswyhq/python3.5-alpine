@@ -17,7 +17,7 @@ ENV LC_ALL zh_CN.UTF-8
 
 WORKDIR /usr/src/app
 
-COPY requirements.txt ./
+# COPY requirements.txt ./
 
 RUN apk --update add --no-cache nginx
 RUN apk --update add --no-cache \
