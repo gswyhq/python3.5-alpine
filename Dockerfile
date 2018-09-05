@@ -70,10 +70,10 @@ RUN apk --update add --no-cache --virtual .build-deps \
     && apk del -f .build-deps
 
 RUN mkdir /var/log/supervisor && \
-    mkdir -p /etc/supervisord/conf.d && \
+    mkdir -p /etc/supervisor/conf.d && \
     echo_supervisord_conf > /etc/supervisor/supervisord.conf && \
     echo "[include]" >> /etc/supervisor/supervisord.conf && \
-    echo "files = /etc/supervisord/conf.d/*.conf" >> /etc/supervisor/supervisord.conf
+    echo "files = /etc/supervisor/conf.d/*.conf" >> /etc/supervisor/supervisord.conf
 
 RUN echo "alias date='date +\"%Y-%m-%d %H:%M:%S\"'" >> ~/.bashrc
 
