@@ -11,6 +11,8 @@ RUN apk update \
     echo "Asia/Shanghai" > /etc/timezone && \
     apk del -f abcdefg
 
+RUN apk add py3-lxml
+
 ENV LANG zh_CN.UTF-8
 ENV LANGUAGE zh_CN:zh
 ENV LC_ALL zh_CN.UTF-8
