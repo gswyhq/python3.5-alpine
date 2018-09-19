@@ -11,7 +11,7 @@ RUN apk update \
     echo "Asia/Shanghai" > /etc/timezone && \
     apk del -f abcdefg
 
-RUN apk add py3-lxml
+RUN apk add py3-lxml bash-completion colordiff vim
 
 ENV LANG zh_CN.UTF-8
 ENV LANGUAGE zh_CN:zh
@@ -24,9 +24,6 @@ WORKDIR /usr/src/app
 RUN apk --update add --no-cache nginx
 RUN mkdir /run/nginx
 RUN apk --update add --no-cache \
-    lapack-dev \
-    gcc \
-    freetype-dev \
     git
 
 RUN apk --update add --no-cache --virtual .build-deps \
@@ -34,6 +31,9 @@ RUN apk --update add --no-cache --virtual .build-deps \
         musl-dev \
         libxslt-dev \
         g++ \
+        lapack-dev \
+        gcc \
+        freetype-dev \
         --repository http://mirrors.ustc.edu.cn/alpine/v3.8/main/ --allow-untrusted \
     && \
     pip install requests==2.12.4 && \
@@ -44,6 +44,7 @@ RUN apk --update add --no-cache --virtual .build-deps \
     pip install Cython==0.27.3 && \
     pip install tornado==4.4.2 && \
     pip install jieba==0.39 && \
+    pip install py2neo==3.1.2 && \
     pip3 install git+https://github.com/Supervisor/supervisor.git \
     # pip3 --default-timeout=60000 install -r requirements.txt  \
     && apk del -f .build-deps
@@ -58,12 +59,21 @@ RUN mkdir /var/log/supervisor && \
     echo "[include]" >> /etc/supervisor/supervisord.conf && \
     echo "files = /etc/supervisor/conf.d/*.conf" >> /etc/supervisor/supervisord.conf
 
+RUN echo 'if [ "$color_prompt" = yes ]; then' >> ~/.bashrc
+RUN echo "    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '" >> ~/.bashrc
+RUN echo "else" >> ~/.bashrc
+RUN echo "    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '" >> ~/.bashrc
+RUN echo "fi" >> ~/.bashrc
+
 RUN echo "alias date='date +\"%Y-%m-%d %H:%M:%S\"'" >> ~/.bashrc
 RUN echo "export TERM=xterm" >> ~/.bashrc
+RUN echo "source /usr/share/bash-completion/completions/git" >> ~/.bashrc
+RUN echo "export PATH=/bin/bash:$PATH"
 
 EXPOSE 8000
 
 CMD [ "python3"]
 
-# $ docker build -t alpine_20180830 -f Dockerfile-alpine .
-# $ docker run -it --rm --name my-running-app alpine_20180830
+# $ docker build -t alpine_20180919 -f Dockerfile .
+# $ docker run -it --rm --name my-running-app alpine_20180919
+
