@@ -37,7 +37,7 @@ RUN apk --update add --no-cache --virtual .build-deps \
         --repository http://mirrors.ustc.edu.cn/alpine/v3.8/main/ --allow-untrusted \
     && \
     pip install requests==2.12.4 && \
-    pip install lxml==3.7.3 && \
+    pip install pandas==0.19.2 && \
     pip install pypinyin==0.23.0 && \
     pip install elasticsearch==5.3.0 && \
     pip install redis==2.10.5 && \
@@ -68,7 +68,7 @@ RUN echo "fi" >> ~/.bashrc
 RUN echo "alias date='date +\"%Y-%m-%d %H:%M:%S\"'" >> ~/.bashrc
 RUN echo "export TERM=xterm" >> ~/.bashrc
 RUN echo "source /usr/share/bash-completion/completions/git" >> ~/.bashrc
-RUN echo "export PATH=/bin/bash:$PATH"
+RUN echo "export PATH=/bin/bash:$PATH" >> ~/.bashrc
 
 EXPOSE 8000
 
